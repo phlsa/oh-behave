@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Animal Test</title>
+	<script type="text/javascript" src="lib/underscore.js"></script>
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="js/animal.js"></script>
+	<style type="text/css">
+	@-webkit-keyframes test {
+		from { -webkit-transform: rotate( 0 ); }
+		to { -webkit-transform: rotate( 360deg ); }
+	}
+	</style>
+</head>
+<body>
+	<button>Jiggle</button>
+	<script type="text/javascript">
+		Animal.initialize();
+		$( 'button').on( 'click', function() {
+			Animal.jiggle( 'button' );
+		});
+	</script>
+</body>
+</html>
