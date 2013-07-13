@@ -10,7 +10,8 @@ var Animal = {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
 			"duration": "1s",
-			"magnitude": 1
+			"magnitude": 1,
+			"onFinish": function(){}
 		});
 		var animation = Animal.createKeyframes({
 			"0%": "-webkit-transform: scale( 1 );",
@@ -24,6 +25,75 @@ var Animal = {
 		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-out 1" });
 		_.delay( function() {
 			$( elem ).css({ "-webkit-animation": "none" });
+			opts.onFinish( $( elem ) );
+		}, 1000 );
+		return $( elem );
+	},
+
+	fall: function( elem, opts ) {
+		if ( opts == undefined ) opts = {};
+		_.defaults( opts, {
+			"duration": "1s",
+			"onFinish": function(){}
+		});
+		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
+		var animation = Animal.createKeyframes({
+			"from": "-webkit-transform: rotateX( 0 )",
+			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
+		});
+		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-in 1" });
+		_.delay( function() {
+			$( elem ).css({ "-webkit-animation": "none", "-webkit-transform": "rotateX( -90deg )", "opacity": 0 });
+			opts.onFinish( $( elem ) );
+		}, 1000 );
+		return $( elem );
+	},
+
+	shake: function( elem, opts ) {
+		if ( opts == undefined ) opts = {};
+		_.defaults( opts, {
+			"duration": "0.5s",
+			"magnitude": 1,
+			"onFinish": function(){}
+		});
+		var animation = Animal.createKeyframes({
+			"0%": "-webkit-transform: translate( 0, 0 );",
+			"10%": "-webkit-transform: translate( "+ (10*opts.magnitude) +"px, 0 );",
+			"25%": "-webkit-transform: translate( "+ (-10*opts.magnitude) +"px, 0 );",
+			"40%": "-webkit-transform: translate( "+ (6*opts.magnitude) +"px, 0 );",
+			"60%": "-webkit-transform: translate( "+ (-6*opts.magnitude) +"px, 0 );",
+			"80%": "-webkit-transform: translate( "+ (2*opts.magnitude) +"px, 0 );",
+			"100%": "-webkit-transform: translate( 0, 0 );"
+		});
+		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-out 1" });
+		_.delay( function() {
+			$( elem ).css({ "-webkit-animation": "none" });
+			opts.onFinish( $( elem ) );
+		}, 500 );
+		return $( elem );
+	},
+
+	fallIn: function( elem, opts ) {
+		if ( opts == undefined ) opts = {};
+		_.defaults( opts, {
+			"duration": "1s",
+			"onFinish": function(){}
+		});
+		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
+		var animation = Animal.createKeyframes({
+			"0%": "-webkit-transform: translate( 0, -100px ); opacity: 0",
+			"20%": "-webkit-transform: translate( 0, 0 ); opacity: 1",
+			"25%": "-webkit-transform: scale( 1, 0.8 );",
+			"35%": "-webkit-transform: scale( 1, 1.2 );",
+			"50%": "-webkit-transform: scale( 1, 0.9 );",
+			"65%": "-webkit-transform: scale( 1, 1.05 );",
+			"85%": "-webkit-transform: scale( 1, 0.97 );",
+			"100%": "-webkit-transform: none;"
+		});
+		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" linear 1" });
+		_.delay( function() {
+			$( elem ).css({ "-webkit-animation": "none" });
+			opts.onFinish( $( elem ) );
 		}, 1000 );
 		return $( elem );
 	},

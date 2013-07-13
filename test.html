@@ -7,18 +7,39 @@
 	<script type="text/javascript" src="lib/jquery.js"></script>
 	<script type="text/javascript" src="js/animal.js"></script>
 	<style type="text/css">
-	@-webkit-keyframes test {
-		from { -webkit-transform: rotate( 0 ); }
-		to { -webkit-transform: rotate( 360deg ); }
+	button {
+		background: #9cc0e4;
+		padding: 10px 18px;
+		font-size: 2em;
+		font-family: "AkkuratLight", "Helvetica Light", Helvetica, sans-serif;
+		color: #fff;
+		border: none;
+		border-radius: 3px;
 	}
 	</style>
 </head>
 <body>
-	<button>Jiggle</button>
+	<div style="max-width:800px; margin:100px auto">
+		<button class="jiggle">Jiggle</button>
+		<div style="-webkit-perspective:100px; display:inline-block">
+			<button class="fall">Fall</button>
+		</div>
+		<button class="shake">Shake</button>
+		<button class="fall-in">Fall In</button>
+	</div>
 	<script type="text/javascript">
 		Animal.initialize();
-		$( 'button').on( 'click', function() {
-			Animal.jiggle( 'button' );
+		$( '.jiggle').on( 'click', function() {
+			Animal.jiggle( '.jiggle' );
+		});
+		$( '.fall').on( 'click', function() {
+			Animal.fall( '.fall' );
+		});
+		$( '.shake').on( 'click', function() {
+			Animal.shake( '.shake' );
+		});
+		$( '.fall-in').on( 'click', function() {
+			Animal.fallIn( '.fall-in' );
 		});
 	</script>
 </body>
