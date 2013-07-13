@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Animal Test</title>
+	<title>Behave Test</title>
 	<script type="text/javascript" src="lib/underscore.js"></script>
 	<script type="text/javascript" src="lib/jquery.js"></script>
-	<script type="text/javascript" src="js/animal.js"></script>
+	<script type="text/javascript" src="js/oh-behave.js"></script>
 	<style type="text/css">
 	button {
 		background: #9cc0e4;
@@ -28,18 +28,18 @@
 		<button class="fall-in">Fall In</button>
 	</div>
 	<script type="text/javascript">
-		Animal.initialize();
-		$( '.jiggle').on( 'click', function() {
-			Animal.jiggle( '.jiggle' );
+		Behave.initialize();
+		$( '.jiggle').on( 'click', function( e ) {
+			Behave.jiggle( e.currentTarget );
 		});
-		$( '.fall').on( 'click', function() {
-			Animal.fall( '.fall' );
+		$( '.fall').on( 'click', function( e ) {
+			Behave.fall( e.currentTarget );
 		});
-		$( '.shake').on( 'click', function() {
-			Animal.shake( '.shake' );
+		$( '.shake').on( 'click', function( e ) {
+			Behave.shake( e.currentTarget );
 		});
-		$( '.fall-in').on( 'click', function() {
-			Animal.fallIn( '.fall-in' );
+		$( '.fall-in').on( 'click', function( e ) {
+			Behave.fallIn( e.currentTarget );
 		});
 	</script>
 </body>
