@@ -1,6 +1,6 @@
-var Animal = {
+var Behave = {
 	initialize: function() {
-		Animal.browserPrefix = "-webkit-"; // insert actual browser prefix via script
+		Behave.browserPrefix = "-webkit-"; // insert actual browser prefix via script
 	},
 
 	// Common Interface:
@@ -13,7 +13,7 @@ var Animal = {
 			"magnitude": 1,
 			"onFinish": function(){}
 		});
-		var animation = Animal.createKeyframes({
+		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: scale( 1 );",
 			"10%": "-webkit-transform: scale( "+ (1+0.2*opts.magnitude) +" );",
 			"25%": "-webkit-transform: scale( "+ (0.9*opts.magnitude) +" );",
@@ -37,7 +37,7 @@ var Animal = {
 			"onFinish": function(){}
 		});
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
-		var animation = Animal.createKeyframes({
+		var animation = Behave.createKeyframes({
 			"from": "-webkit-transform: rotateX( 0 )",
 			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
 		});
@@ -49,6 +49,13 @@ var Animal = {
 		return $( elem );
 	},
 
+	sheetIn: function( elem, opts ) {
+		// like the sheets in OSX
+	},
+	sheetOut: function( elem, opts ) {
+		// like the sheets in OSX
+	},
+
 	shake: function( elem, opts ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
@@ -56,7 +63,7 @@ var Animal = {
 			"magnitude": 1,
 			"onFinish": function(){}
 		});
-		var animation = Animal.createKeyframes({
+		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: translate( 0, 0 );",
 			"10%": "-webkit-transform: translate( "+ (10*opts.magnitude) +"px, 0 );",
 			"25%": "-webkit-transform: translate( "+ (-10*opts.magnitude) +"px, 0 );",
@@ -80,7 +87,7 @@ var Animal = {
 			"onFinish": function(){}
 		});
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
-		var animation = Animal.createKeyframes({
+		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: translate( 0, -100px ); opacity: 0",
 			"20%": "-webkit-transform: translate( 0, 0 ); opacity: 1",
 			"25%": "-webkit-transform: scale( 1, 0.8 );",
