@@ -22,24 +22,28 @@
 	<div style="max-width:800px; margin:100px auto">
 		<button class="jiggle">Jiggle</button>
 		<div style="-webkit-perspective:100px; display:inline-block">
-			<button class="fall">Fall</button>
+			<button class="fall3d">Fall</button>
 		</div>
 		<button class="shake">Shake</button>
 		<button class="fall-in">Fall In</button>
+		<button class="fall-off">Fall off</button>
 	</div>
 	<script type="text/javascript">
 		Behave.initialize();
 		$( '.jiggle').on( 'click', function( e ) {
 			Behave.jiggle( e.currentTarget );
 		});
-		$( '.fall').on( 'click', function( e ) {
-			Behave.fall( e.currentTarget );
+		$( '.fall3d').on( 'click', function( e ) {
+			Behave.fall3d( e.currentTarget );
 		});
 		$( '.shake').on( 'click', function( e ) {
 			Behave.shake( e.currentTarget );
 		});
 		$( '.fall-in').on( 'click', function( e ) {
 			Behave.fallIn( e.currentTarget );
+		});
+		$( '.fall-off').on( 'click', function( e ) {
+			Behave.fallOff( e.currentTarget );
 		});
 	</script>
 </body>

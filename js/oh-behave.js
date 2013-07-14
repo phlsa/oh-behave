@@ -24,7 +24,7 @@ var Behave = {
 		return $( elem );
 	},
 
-	fall: function( elem, opts ) {
+	fall3d: function( elem, opts ) {
 		opts = Behave.defaultOptions( opts );
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
 		var animation = Behave.createKeyframes({
@@ -76,6 +76,25 @@ var Behave = {
 			"100%": "-webkit-transform: none;"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear 1" });
+		Behave.cleanupDelayed( elem, opts );
+		return $( elem );
+	},
+
+	fallOff: function( elem, opts ) {
+		opts = Behave.defaultOptions( opts, {
+			maximumRotation: 180
+		});
+		$( elem ).css({ "-webkit-transform-origin": "100% 100%" });
+		var animation = Behave.createKeyframes({
+			"0%": "-webkit-transform: none",
+			"15%": "-webkit-transform: rotate( -" + opts.maximumRotation*1 + "deg );",
+			"30%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.38 + "deg );",
+			"45%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.77 + "deg );",
+			"60%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.55 + "deg );",
+			"80%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.66 + "deg ); opacity: 1;",
+			"100%": "-webkit-transform: translate( 0, 200% ) rotate( -" + opts.maximumRotation*0.53 + "deg ); opacity: 0;"
+		});
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
