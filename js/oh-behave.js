@@ -20,10 +20,7 @@ var Behave = {
 			"100%": "-webkit-transform: scale( 1 );"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
-		_.delay( function() {
-			$( elem ).css({ "-webkit-animation": "none" });
-			opts.onFinish( $( elem ) );
-		}, opts.duration );
+		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
@@ -35,10 +32,7 @@ var Behave = {
 			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-in 1" });
-		_.delay( function() {
-			$( elem ).css({ "-webkit-animation": "none", "-webkit-transform": "rotateX( -90deg )", "opacity": 0 });
-			opts.onFinish( $( elem ) );
-		}, opts.duration );
+		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
@@ -64,10 +58,7 @@ var Behave = {
 			"100%": "-webkit-transform: translate( 0, 0 );"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
-		_.delay( function() {
-			$( elem ).css({ "-webkit-animation": "none" });
-			opts.onFinish( $( elem ) );
-		}, opts.duration );
+		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
@@ -85,10 +76,7 @@ var Behave = {
 			"100%": "-webkit-transform: none;"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear 1" });
-		_.delay( function() {
-			$( elem ).css({ "-webkit-animation": "none" });
-			opts.onFinish( $( elem ) );
-		}, opts.duration );
+		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
@@ -99,6 +87,14 @@ var Behave = {
 			onFinish: function(){}
 		});
 		return opts;
+	},
+
+	cleanupDelayed: function( elem, opts, actions ) {
+		_.delay( function() {
+			$( elem ).css({ "-webkit-animation": "none" });
+			opts.onFinish( $(elem) );
+			if ( actions ) actions();
+		}, opts.duration );
 	},
 
 	createKeyframes: function( opts ) {
