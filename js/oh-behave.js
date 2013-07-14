@@ -7,11 +7,8 @@ var Behave = {
 	// First parameter is the element, second is an object with options
 
 	jiggle: function( elem, opts ) {
-		if ( opts == undefined ) opts = {};
-		_.defaults( opts, {
-			"duration": 1000,
-			"magnitude": 1,
-			"onFinish": function(){}
+		opts = Behave.defaultOptions( opts, {
+			magnitude: 1
 		});
 		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: scale( 1 );",
@@ -31,11 +28,7 @@ var Behave = {
 	},
 
 	fall: function( elem, opts ) {
-		if ( opts == undefined ) opts = {};
-		_.defaults( opts, {
-			"duration": 1000,
-			"onFinish": function(){}
-		});
+		opts = Behave.defaultOptions( opts );
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
 		var animation = Behave.createKeyframes({
 			"from": "-webkit-transform: rotateX( 0 )",
@@ -57,11 +50,9 @@ var Behave = {
 	},
 
 	shake: function( elem, opts ) {
-		if ( opts == undefined ) opts = {};
-		_.defaults( opts, {
-			"duration": 500,
-			"magnitude": 1,
-			"onFinish": function(){}
+		opts = Behave.defaultOptions( opts, {
+			magnitude: 1,
+			duration: 500
 		});
 		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: translate( 0, 0 );",
@@ -81,11 +72,7 @@ var Behave = {
 	},
 
 	fallIn: function( elem, opts ) {
-		if ( opts == undefined ) opts = {};
-		_.defaults( opts, {
-			"duration": 1000,
-			"onFinish": function(){}
-		});
+		opts = Behave.defaultOptions( opts );
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
 		var animation = Behave.createKeyframes({
 			"0%": "-webkit-transform: translate( 0, -100px ); opacity: 0",
@@ -103,6 +90,15 @@ var Behave = {
 			opts.onFinish( $( elem ) );
 		}, opts.duration );
 		return $( elem );
+	},
+
+	defaultOptions: function( opts, localDefaults ) {
+		if ( opts == undefined ) opts = {};
+		_.defaults( opts, localDefaults, {
+			duration: 1000,
+			onFinish: function(){}
+		});
+		return opts;
 	},
 
 	createKeyframes: function( opts ) {
