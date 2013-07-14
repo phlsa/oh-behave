@@ -9,7 +9,7 @@ var Behave = {
 	jiggle: function( elem, opts ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
-			"duration": "1s",
+			"duration": 1000,
 			"magnitude": 1,
 			"onFinish": function(){}
 		});
@@ -22,18 +22,18 @@ var Behave = {
 			"80%": "-webkit-transform: scale( "+ (1+0.05*opts.magnitude) +" );",
 			"100%": "-webkit-transform: scale( 1 );"
 		});
-		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-out 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
 		_.delay( function() {
 			$( elem ).css({ "-webkit-animation": "none" });
 			opts.onFinish( $( elem ) );
-		}, 1000 );
+		}, opts.duration );
 		return $( elem );
 	},
 
 	fall: function( elem, opts ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
-			"duration": "1s",
+			"duration": 1000,
 			"onFinish": function(){}
 		});
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
@@ -41,11 +41,11 @@ var Behave = {
 			"from": "-webkit-transform: rotateX( 0 )",
 			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
 		});
-		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-in 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-in 1" });
 		_.delay( function() {
 			$( elem ).css({ "-webkit-animation": "none", "-webkit-transform": "rotateX( -90deg )", "opacity": 0 });
 			opts.onFinish( $( elem ) );
-		}, 1000 );
+		}, opts.duration );
 		return $( elem );
 	},
 
@@ -59,7 +59,7 @@ var Behave = {
 	shake: function( elem, opts ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
-			"duration": "0.5s",
+			"duration": 500,
 			"magnitude": 1,
 			"onFinish": function(){}
 		});
@@ -72,18 +72,18 @@ var Behave = {
 			"80%": "-webkit-transform: translate( "+ (2*opts.magnitude) +"px, 0 );",
 			"100%": "-webkit-transform: translate( 0, 0 );"
 		});
-		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" ease-out 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
 		_.delay( function() {
 			$( elem ).css({ "-webkit-animation": "none" });
 			opts.onFinish( $( elem ) );
-		}, 500 );
+		}, opts.duration );
 		return $( elem );
 	},
 
 	fallIn: function( elem, opts ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, {
-			"duration": "1s",
+			"duration": 1000,
 			"onFinish": function(){}
 		});
 		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
@@ -97,27 +97,35 @@ var Behave = {
 			"85%": "-webkit-transform: scale( 1, 0.97 );",
 			"100%": "-webkit-transform: none;"
 		});
-		$( elem ).css({ "-webkit-animation": "testAnimation "+opts.duration+" linear 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear 1" });
 		_.delay( function() {
 			$( elem ).css({ "-webkit-animation": "none" });
 			opts.onFinish( $( elem ) );
-		}, 1000 );
+		}, opts.duration );
 		return $( elem );
 	},
 
 	createKeyframes: function( opts ) {
 		// generate random class identifier and add keyframes to the document
 		// return the class identifier
-		var animationName = "testAnimation";
-		var keyframeString = "<style type='text/css'>";
+		var styleElement;
+		if ( $( '#oh-behave-styles' ).length === 0 ) {
+			styleElement = $( "<style type='text/css' id='oh-behave-styles'></style>" );
+			$( 'head' ).append( styleElement );
+		} else {
+			styleElement = $( '#oh-behave-styles' );
+		}
+		var animationName = "ohBehaveAnimation";
+		var keyframeString = "";
 		keyframeString += "@-webkit-keyframes " + animationName + " {";
 		_.each( opts, function( item, key ) {
 			keyframeString += key + " {";
 			keyframeString += item;
 			keyframeString += "}";
 		});
-		keyframeString += "}</style>";
-		$( 'head' ).append( $( keyframeString ) );
+		keyframeString += "}";
+		
+		styleElement.text( keyframeString );
 		return animationName;
 	}
 }
