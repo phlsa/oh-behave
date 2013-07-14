@@ -16,7 +16,7 @@ var Behave = {
 			"25%": "-webkit-transform: scale( "+ (0.9*opts.magnitude) +" );",
 			"40%": "-webkit-transform: scale( "+ (1+0.1*opts.magnitude) +" );",
 			"60%": "-webkit-transform: scale( "+ (0.95*opts.magnitude) +" );",
-			"80%": "-webkit-transform: scale( "+ (1+0.05*opts.magnitude) +" );",
+			"80%": "-webkit-transform: scale( "+ (1+0.02*opts.magnitude) +" );",
 			"100%": "-webkit-transform: scale( 1 );"
 		});
 		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
