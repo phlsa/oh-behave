@@ -30,8 +30,8 @@ var Behave = {
 		var css =
 		$( elem ).css( Behave.prefixedCss( "transform-origin", "50% 100%" ));
 		var animation = Behave.createKeyframes({
-			"from": Behave.prefix()+"transform: rotateX( 0 )",
-			"to": Behave.prefix()+"transform: rotateX( -90deg ); opacity:0"
+			"from": Behave.prefix()+"transform: perspective(200px) rotateX( 0 )",
+			"to": Behave.prefix()+"transform: perspective(200px) rotateX( -90deg ); opacity:0"
 		});
 		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-in "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
