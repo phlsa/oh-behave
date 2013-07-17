@@ -1,6 +1,7 @@
 var Behave = {
 	initialize: function() {
-		Behave.browserPrefix = "-webkit-"; // insert actual browser prefix via script
+		//Behave.browserPrefix = "-webkit-"; // insert actual browser prefix via script
+		//Behave.generateBrowserPrefix();
 	},
 
 	// Common Interface:
@@ -11,27 +12,28 @@ var Behave = {
 			magnitude: 1
 		});
 		var animation = Behave.createKeyframes({
-			"0%": "-webkit-transform: scale( 1 );",
-			"10%": "-webkit-transform: scale( "+ (1+0.2*opts.magnitude) +" );",
-			"25%": "-webkit-transform: scale( "+ (0.9*opts.magnitude) +" );",
-			"40%": "-webkit-transform: scale( "+ (1+0.1*opts.magnitude) +" );",
-			"60%": "-webkit-transform: scale( "+ (0.95*opts.magnitude) +" );",
-			"80%": "-webkit-transform: scale( "+ (1+0.02*opts.magnitude) +" );",
-			"100%": "-webkit-transform: scale( 1 );"
+			"0%": Behave.prefix()+"transform: scale( 1 );",
+			"10%": Behave.prefix()+"transform: scale( "+ (1+0.2*opts.magnitude) +" );",
+			"25%": Behave.prefix()+"transform: scale( "+ (0.9*opts.magnitude) +" );",
+			"40%": Behave.prefix()+"transform: scale( "+ (1+0.1*opts.magnitude) +" );",
+			"60%": Behave.prefix()+"transform: scale( "+ (0.95*opts.magnitude) +" );",
+			"80%": Behave.prefix()+"transform: scale( "+ (1+0.02*opts.magnitude) +" );",
+			"100%": Behave.prefix()+"transform: scale( 1 );"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
 	fall3d: function( elem, opts ) {
 		opts = Behave.defaultOptions( opts );
-		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
+		var css =
+		$( elem ).css( Behave.prefixedCss( "transform-origin", "50% 100%" ));
 		var animation = Behave.createKeyframes({
-			"from": "-webkit-transform: rotateX( 0 )",
-			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
+			"from": Behave.prefix()+"transform: rotateX( 0 )",
+			"to": Behave.prefix()+"transform: rotateX( -90deg ); opacity:0"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-in "+ opts.delay +"ms" });
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-in "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -49,33 +51,33 @@ var Behave = {
 			duration: 500
 		});
 		var animation = Behave.createKeyframes({
-			"0%": "-webkit-transform: translate( 0, 0 );",
-			"10%": "-webkit-transform: translate( "+ (10*opts.magnitude) +"px, 0 );",
-			"25%": "-webkit-transform: translate( "+ (-10*opts.magnitude) +"px, 0 );",
-			"40%": "-webkit-transform: translate( "+ (6*opts.magnitude) +"px, 0 );",
-			"60%": "-webkit-transform: translate( "+ (-6*opts.magnitude) +"px, 0 );",
-			"80%": "-webkit-transform: translate( "+ (2*opts.magnitude) +"px, 0 );",
-			"100%": "-webkit-transform: translate( 0, 0 );"
+			"0%": Behave.prefix()+"transform: translate( 0, 0 );",
+			"10%": Behave.prefix()+"transform: translate( "+ (10*opts.magnitude) +"px, 0 );",
+			"25%": Behave.prefix()+"transform: translate( "+ (-10*opts.magnitude) +"px, 0 );",
+			"40%": Behave.prefix()+"transform: translate( "+ (6*opts.magnitude) +"px, 0 );",
+			"60%": Behave.prefix()+"transform: translate( "+ (-6*opts.magnitude) +"px, 0 );",
+			"80%": Behave.prefix()+"transform: translate( "+ (2*opts.magnitude) +"px, 0 );",
+			"100%": Behave.prefix()+"transform: translate( 0, 0 );"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
 
 	fallIn: function( elem, opts ) {
 		opts = Behave.defaultOptions( opts );
-		$( elem ).css({ "-webkit-transform-origin": "50% 100%" });
+		$( elem ).css( Behave.prefixedCss( "transform-origin", "50% 100%" ));
 		var animation = Behave.createKeyframes({
-			"0%": "-webkit-transform: translate( 0, -100px ); opacity: 0",
-			"20%": "-webkit-transform: translate( 0, 0 ); opacity: 1",
-			"25%": "-webkit-transform: scale( 1, 0.8 );",
-			"35%": "-webkit-transform: scale( 1, 1.2 );",
-			"50%": "-webkit-transform: scale( 1, 0.9 );",
-			"65%": "-webkit-transform: scale( 1, 1.05 );",
-			"85%": "-webkit-transform: scale( 1, 0.97 );",
-			"100%": "-webkit-transform: none;"
+			"0%": Behave.prefix()+"transform: translate( 0, -100px ); opacity: 0",
+			"20%": Behave.prefix()+"transform: translate( 0, 0 ); opacity: 1",
+			"25%": Behave.prefix()+"transform: scale( 1, 0.8 );",
+			"35%": Behave.prefix()+"transform: scale( 1, 1.2 );",
+			"50%": Behave.prefix()+"transform: scale( 1, 0.9 );",
+			"65%": Behave.prefix()+"transform: scale( 1, 1.05 );",
+			"85%": Behave.prefix()+"transform: scale( 1, 0.97 );",
+			"100%": Behave.prefix()+"transform: none;"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear "+ opts.delay +"ms" });
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -84,18 +86,17 @@ var Behave = {
 		opts = Behave.defaultOptions( opts, {
 			maximumRotation: 180
 		});
-		$( elem ).css({ "-webkit-transform-origin": "100% 100%" });
+		$( elem ).css( Behave.prefixedCss( "transform-origin", "100% 100%" ));
 		var animation = Behave.createKeyframes({
-			"0%": "-webkit-transform: none",
-			"15%": "-webkit-transform: rotate( -" + opts.maximumRotation*1 + "deg );",
-			"30%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.38 + "deg );",
-			"45%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.77 + "deg );",
-			"60%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.55 + "deg );",
-			"80%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.66 + "deg ); opacity: 1;",
-			"100%": "-webkit-transform: translate( 0, 200% ) rotate( -" + opts.maximumRotation*0.53 + "deg ); opacity: 0;"
+			"0%": Behave.prefix()+"transform: none",
+			"15%": Behave.prefix()+"transform: rotate( -" + opts.maximumRotation*1 + "deg );",
+			"30%": Behave.prefix()+"transform: rotate( -" + opts.maximumRotation*0.38 + "deg );",
+			"45%": Behave.prefix()+"transform: rotate( -" + opts.maximumRotation*0.77 + "deg );",
+			"60%": Behave.prefix()+"transform: rotate( -" + opts.maximumRotation*0.55 + "deg );",
+			"80%": Behave.prefix()+"transform: rotate( -" + opts.maximumRotation*0.66 + "deg ); opacity: 1;",
+			"100%": Behave.prefix()+"transform: translate( 0, 200% ) rotate( -" + opts.maximumRotation*0.53 + "deg ); opacity: 0;"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
-		console.log( $( elem ) );
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" ));
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -125,7 +126,7 @@ var Behave = {
 
 	cleanupDelayed: function( elem, opts, actions ) {
 		_.delay( function() {
-			$( elem ).css({ "-webkit-animation": "none" });
+			$( elem ).css( Behave.prefixedCss( "animation", "none" ));
 			opts.onFinish( $(elem) );
 			if ( actions ) actions();
 		}, opts.duration+opts.delay );
@@ -143,7 +144,7 @@ var Behave = {
 		}
 		var animationName = "ohBehaveAnimation";
 		var keyframeString = "";
-		keyframeString += "@-webkit-keyframes " + animationName + " {";
+		keyframeString += "@"+ Behave.prefix() +"keyframes " + animationName + " {";
 		_.each( opts, function( item, key ) {
 			keyframeString += key + " {";
 			keyframeString += item;
@@ -153,5 +154,44 @@ var Behave = {
 		
 		styleElement.text( keyframeString );
 		return animationName;
+	},
+
+	generateBrowserPrefix: function( str ) {
+		Behave.browserPrefix = (function() {
+			if( 'result' in arguments.callee ) return arguments.callee.result;
+			var regex = /^(moz|webkit|khtml|o|ms|icab)(?=[A-Z])/;
+			var someScript = document.getElementsByTagName('script')[0];
+
+			for( var prop in someScript.style ) {
+				if( regex.test( prop ) ) {
+					return arguments.callee.result = prop.match( regex )[0];
+				}
+			}
+			if( 'WebkitOpacity' in someScript.style ) return arguments.callee.result = 'webkit';
+			if( 'KhtmlOpacity' in someScript.style ) return arguments.callee.result = 'khtml';
+			return arguments.callee.result = '';
+		})();
+		
+		if ( Behave.browserPrefix === "moz" ) {
+			Behave.browserPrefix = "";
+		}
+	},
+
+	prefix: function() {
+		if ( Behave.browserPrefix === undefined ) {
+			Behave.generateBrowserPrefix();
+		}
+		if ( Behave.browserPrefix == "" ) {
+			return Behave.browserPrefix;
+		} else {
+			return "-" + Behave.browserPrefix + "-";
+		}
+	},
+
+	prefixedCss: function( property, opts, more ) {
+		var css = {};
+		css[Behave.prefix() + property] = opts;
+		_.extend( css, more );
+		return css;
 	}
 }
