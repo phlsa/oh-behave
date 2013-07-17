@@ -19,7 +19,7 @@ var Behave = {
 			"80%": "-webkit-transform: scale( "+ (1+0.02*opts.magnitude) +" );",
 			"100%": "-webkit-transform: scale( 1 );"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -31,7 +31,7 @@ var Behave = {
 			"from": "-webkit-transform: rotateX( 0 )",
 			"to": "-webkit-transform: rotateX( -90deg ); opacity:0"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-in 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-in "+ opts.delay +"ms" });
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -57,7 +57,7 @@ var Behave = {
 			"80%": "-webkit-transform: translate( "+ (2*opts.magnitude) +"px, 0 );",
 			"100%": "-webkit-transform: translate( 0, 0 );"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -75,7 +75,7 @@ var Behave = {
 			"85%": "-webkit-transform: scale( 1, 0.97 );",
 			"100%": "-webkit-transform: none;"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms linear "+ opts.delay +"ms" });
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
 	},
@@ -94,15 +94,30 @@ var Behave = {
 			"80%": "-webkit-transform: rotate( -" + opts.maximumRotation*0.66 + "deg ); opacity: 1;",
 			"100%": "-webkit-transform: translate( 0, 200% ) rotate( -" + opts.maximumRotation*0.53 + "deg ); opacity: 0;"
 		});
-		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out 1" });
+		$( elem ).css({ "-webkit-animation": animation + " "+opts.duration+"ms ease-out "+ opts.delay +"ms" });
+		console.log( $( elem ) );
 		Behave.cleanupDelayed( elem, opts );
 		return $( elem );
+	},
+
+	cascade: function( elems, opts ) {
+		opts = Behave.defaultOptions( opts, {
+			behavior: 'jiggle',
+			offset: 500,
+			options: {}
+		});
+		_.each( elems, function( item, index ) {
+			_.delay( function() {
+				Behave[opts.behavior]( $( item ), opts.options )
+			}, opts.offset*index);
+		});
 	},
 
 	defaultOptions: function( opts, localDefaults ) {
 		if ( opts == undefined ) opts = {};
 		_.defaults( opts, localDefaults, {
 			duration: 1000,
+			delay: 0,
 			onFinish: function(){}
 		});
 		return opts;
@@ -113,7 +128,7 @@ var Behave = {
 			$( elem ).css({ "-webkit-animation": "none" });
 			opts.onFinish( $(elem) );
 			if ( actions ) actions();
-		}, opts.duration );
+		}, opts.duration+opts.delay );
 	},
 
 	createKeyframes: function( opts ) {

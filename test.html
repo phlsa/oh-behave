@@ -16,6 +16,15 @@
 		border: none;
 		border-radius: 3px;
 	}
+
+	.tile {
+		width: 40px;
+		height: 40px;
+		float:left;
+		margin-right: 10px;
+		background-color: #4c5a86;
+		border: 1px solid rgba(255,255,255,0.7);
+	}
 	</style>
 </head>
 <body>
@@ -27,6 +36,18 @@
 		<button class="shake">Shake</button>
 		<button class="fall-in">Fall In</button>
 		<button class="fall-off">Fall off</button>
+		<div class="cascade-container">
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+			<div class="tile"></div>
+		</div>
+		<button class="cascade">Cascade</button>
 	</div>
 	<script type="text/javascript">
 		Behave.initialize();
@@ -44,6 +65,9 @@
 		});
 		$( '.fall-off').on( 'click', function( e ) {
 			Behave.fallOff( e.currentTarget );
+		});
+		$( '.cascade' ).on( 'click', function( e ) {
+			Behave.cascade( $( '.tile' ), { offset:50, behavior:'jiggle' });
 		});
 	</script>
 </body>
