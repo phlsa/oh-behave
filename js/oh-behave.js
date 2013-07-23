@@ -7,6 +7,16 @@ var Behave = {
 	// Common Interface:
 	// First parameter is the element, second is an object with options
 
+	animate: function( elem, anim, opts ) {
+		opts = Behave.defaultOptions( opts, {
+			easing: 'ease'
+		});
+		var animation = Behave.createKeyframes( anim );
+		$( elem ).css( Behave.prefixedCss( "animation", animation + " "+opts.duration+"ms "+opts.easing+" "+opts.delay+"ms" ));
+		Behave.cleanupDelayed( elem, opts );
+		return $( elem );
+	},
+
 	jiggle: function( elem, opts ) {
 		opts = Behave.defaultOptions( opts, {
 			magnitude: 1
